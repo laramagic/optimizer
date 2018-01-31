@@ -26,6 +26,8 @@ class OptimizerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        return false;
+        
         $faker = Factory::create();
 
         $this->app['router']->get('api/command/{command}/{param?}', function($name,$param){

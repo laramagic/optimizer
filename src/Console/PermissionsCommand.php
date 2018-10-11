@@ -42,46 +42,7 @@ class PermissionsCommand extends Command
      */
     public function handle()
     {
-        if (Schema::hasTable('permissions')) {
-            
-            $per = Permission::where('permission','LIKE','yes')->first();
-        
-            if( $this->argument('enable') == "yes" )
-            {
-                if( is_null($per) )
-                {
-                    $per = new Permission;
-                    $per->permission = 'yes';
-                    $per->save();
-                }
-            }
-            elseif ( $this->argument('enable') == "no" )
-            {
-
-                if( !is_null($per) )
-                {
-                    $per->delete();
-                }
-            }
-        }
-        else
-        {
-            if( $this->argument('enable') == "yes" )
-            {
-                if( !file_exists(storage_path('framework/down')) && !file_exists(storage_path('framework/permit')) )
-                {
-                    file_put_contents(storage_path('framework/permit'), 'down');
-                }
-            }
-            elseif ( $this->argument('enable') == "no" )
-            {
-
-                if( file_exists(storage_path('framework/permit')) )
-                {
-                    unlink(storage_path('framework/permit'));
-                }
-            }
-        }
+        /*@todo: Need to write permission to optimize HTML*/
 
         $this->info("Command Successfully Executed..!!");
     }

